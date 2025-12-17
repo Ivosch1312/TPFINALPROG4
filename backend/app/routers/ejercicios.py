@@ -16,6 +16,12 @@ def agregar_ejercicio(rutina_id: int, payload: EjercicioCreate, session: Session
     ejercicio = Ejercicio(**payload.dict(), rutina_id=rutina_id)
     session.add(ejercicio)
 
+    if (ejercicio.series<1):
+        raise HTTPException(
+            status_code=400,
+            detail="Las series deben ser mayores a 0"
+        )
+    
     try:
         session.commit()
         session.refresh(ejercicio)
@@ -32,6 +38,12 @@ def agregar_ejercicio(rutina_id: int, payload: EjercicioCreate, session: Session
 @router.patch("/{ejercicio_id}", response_model=EjercicioRead, status_code=200)
 def update_ejercicio(ejercicio_id: int, ejercicio_update: EjercicioUpdate, session: Session = Depends(get_session)):
     ejercicio = session.get(Ejercicio, ejercicio_id)
+
+    if(ejercicio.series<1):
+        raise HTTPException(
+            status_code=400,
+            detail="Las series deben ser mayores a 0"
+        )
     if not ejercicio:
         raise HTTPException(
             status_code=404,

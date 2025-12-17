@@ -23,6 +23,7 @@ export interface RutinaUpdate {
 export interface EjercicioBase {
   nombre: string;
   dia_semana: DiaSemana;
+  series: number;
   repeticiones: number;
   peso?: number;
   notas?: string;

@@ -153,3 +153,9 @@ TPFINALPROG4/
 ## Licencia
 
 Este proyecto es para fines educativos.
+
+CAMBIOS IMPORTANTES:
+1) Que cuando borre algo, se actualize la pagina (no llegue a solucionarlo)
+2) No tenia en cuenta las series (solucionado)
+3) Tiene que pedir las series en el front cuando crea y edita un ejercicio (solucionado)
+4) Que mustre las series de base (solucionado)

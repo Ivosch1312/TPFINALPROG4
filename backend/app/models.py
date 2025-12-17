@@ -43,6 +43,7 @@ class RutinaUpdate(SQLModel):
 class EjercicioBase(SQLModel):
     nombre: str
     dia_semana: DiaSemana
+    series: int = Field(default=None, gt=0) #Que sea mayor a 0
     repeticiones: int = Field(default=None, gt=0) #Que sea mayor a 0
     peso: Optional[float] = Field(default=None, gt=0)#same
     notas: Optional[str]
@@ -64,7 +65,7 @@ class EjercicioRead(EjercicioBase):
 class EjercicioUpdate(SQLModel):
     nombre: Optional[str]
     dia_semana: Optional[DiaSemana]
-    series: Optional[int]
+    series: Optional[int] = Field(default=None, gt=0) #Que sea mayor a 0
     repeticiones: Optional[int] = Field(default=None, gt=0) #Que sea mayor a 0
     peso: Optional[float] = Field(default=None, gt=0) #same
     notas: Optional[str]

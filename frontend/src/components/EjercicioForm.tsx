@@ -20,6 +20,7 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ rutinaId, ejercicio, onCl
   const [formData, setFormData] = useState<EjercicioCreate>({ /* Crea una base para el ejercicio */
     nombre: '', /* Nombre del ejercicio */
     dia_semana: 'Lunes', /* Día de la semana por defecto */
+    series: 1, /* Series por defecto */
     repeticiones: 1, /* Repeticiones por defecto */
     peso: undefined, /* Peso opcional */
     notas: '', /* Notas opcionales */
@@ -33,6 +34,7 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ rutinaId, ejercicio, onCl
       setFormData({
         nombre: ejercicio.nombre,
         dia_semana: ejercicio.dia_semana,
+        series: ejercicio.series,
         repeticiones: ejercicio.repeticiones,
         peso: ejercicio.peso,
         notas: ejercicio.notas || '',
@@ -54,6 +56,10 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ rutinaId, ejercicio, onCl
 
     if (formData.peso !== undefined && formData.peso < 0) { /* Mensaje de error si el peso es negativo */
       newErrors.peso = 'El peso no puede ser negativo';
+    }
+
+    if (formData.series < 1) { /* Mensaje de error si las series son menores a 1 */
+      newErrors.series = 'Las series deben ser al menos 1';
     }
 
     setErrors(newErrors); 
@@ -136,8 +142,10 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ rutinaId, ejercicio, onCl
             ))}
           </select>
         </div>
-
-        <div className="form-row"> {/* Fila para repeticiones y peso */}
+        
+       
+        
+        <div className="form-row"> {/* Fila para repeticiones, peso y series */}
           <div className="form-group"> {/* Grupo para repeticiones */}
             <label htmlFor="repeticiones">Repeticiones *</label> {/* Etiqueta para repeticiones */}
             <input
@@ -150,6 +158,20 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ rutinaId, ejercicio, onCl
               className={errors.repeticiones ? 'error' : ''}
             /> {/* Campo de entrada para repeticiones */}
             {errors.repeticiones && <span className="error-message">{errors.repeticiones}</span>} {/* Mensaje de error para repeticiones */}
+          </div>
+
+          <div className="form-group"> {/* Grupo para series */}
+            <label htmlFor="series">Series *</label> {/* Etiqueta para series */}
+            <input
+              type="number"
+              id="series"
+              name="series"
+              value={formData.series}
+              onChange={handleChange}
+              min="1"
+              className={errors.series ? 'error' : ''}
+            /> {/* Campo de entrada para series */}
+            {errors.series && <span className="error-message">{errors.series}</span>} {/* Mensaje de error para series */}
           </div>
 
           <div className="form-group"> {/* Grupo para peso */}
